@@ -1,3 +1,29 @@
+/**
+ *  Sat April 5, 2014
+ *
+ *  This .js node script runs on my raspberry pi and filters the collected data and serves it via rest
+ *
+ *  There are three mongo collections:
+ *  1. sensors : this is scraped from http://udfcd.onerain.com.  It is a record, with LL coords, of each
+ *     'device' (not each station).  Each of these records from onerain actually includes the last value
+ *     of the sensor, which isn't used here, because we're collecting the values directly via radio.
+ *
+ *  2. sites : this is also scraped form http://udfcd.onerain.com.  It is a record, also with LL coords, of
+ *     each 'station'.  Each station can have multiple 'sensors'.  We're getting the LL and name from this record.
+ *
+ *  3. receivedStations : this is a raw collection of data received via radio.  Each record includes stationID
+ *     (which is device_alias in the udfc data), and value, and timestamp
+ *
+ *  4. foundStations : this is one record for each station we've ever received, the first time we say it, and the last time
+ *     it reported
+ *
+ *  This .js does two things:
+ *  1. It runs every 5 minutes and filters un processed receivedStations into foundStations updating or inserting new records
+ *     as needed
+ *
+ *  2. It serves the foundStations data via JSON REST using express
+ *
+ */
 var MongoClient = require('mongodb').MongoClient, format = require('util').format;
 var _ = require('underscore');
 var Q = require('q');
@@ -220,5 +246,5 @@ setInterval(function () {
             })
     });
 
-}, 30 * 1000);
+}, 5 * 60 * 1000);
 
