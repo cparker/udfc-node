@@ -10,7 +10,11 @@
     },
     "dependencies": {
         "express": "3.4.0",
-        "ejs": "*"
+        "ejs": "*",
+        "mongodb": "*",
+        "node-schedule" : "*",
+        "q" : "*",
+        "underscore" : "*"
     },
     "devDependencies": {
         "grunt": "~0.4.1",
