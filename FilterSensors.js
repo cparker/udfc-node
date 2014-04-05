@@ -164,15 +164,17 @@ var processOneStation = function (db) {
             return [stationDetails, syncFindOne(db, 'foundStations', {stationID: stationDetails.properties.site_alias})];
         })
         .spread(function (stationDetails, foundStation) {
+            var stationPoint = {
+                latitude: stationDetails.geometry.coordinates[1],
+                longitude: stationDetails.geometry.coordinates[0]
+            };
+
+            var distanceFromHome = computeDistanceMiles(stationPoint, home);
+
             if (foundStation == null) {
                 console.log("inserting new station for " + stationDetails.properties.name);
 
-                var stationPoint = {
-                    latitude: stationDetails.geometry.coordinates[1],
-                    longitude: stationDetails.geometry.coordinates[0]
-                };
 
-                var distanceFromHome = computeDistanceMiles(stationPoint, home);
 
                 var newFoundStation = {
                     stationID: stationDetails.properties.site_alias,
@@ -190,7 +192,10 @@ var processOneStation = function (db) {
             }
             else {
                 console.log("updating existing station " + foundStation.name);
+
                 foundStation.lastReport = new Date();
+                // todo this is temporary
+                foundStation.distanceFromHome = distanceFromHome;
                 return syncUpdate(db, 'foundStations', {"_id": foundStation._id}, foundStation);
 
             }
