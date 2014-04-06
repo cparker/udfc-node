@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+
+    <title>Discovered UDFC Stations</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no"/>
+    <style type="text/css">
+        html {
+            height: 100%
+        }
+
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0
+        }
+
+        #map-canvas {
+            height: 600px;
+            width: 800px;
+        }
+
+        #stationTable {
+            height: 700px;
+            width: 100%;
+        }
+    </style>
+
+
+    <script type="text/javascript"
+            src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js">
+    </script>
+
+    <script type="text/javascript"
+            src="underscore-min.js">
+    </script>
+
+    <script type="text/javascript"
+            src="moment.min.js">
+    </script>
+
+
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAxxWVRy_IOaNZmrM9ucu_mpXvDfQlFhQ4&sensor=false">
+    </script>
+
+    <script type="text/javascript"
+            src="ud-main-2.js">
+    </script>
+</head>
+
+<body>
+<div>
+    <div id="map-canvas"></div>
+</div>
+
+
+<div>
+    <p id="total"></p>
+</div>
+<table id="stationTable">
+    <tr>
+        <th>Name</th>
+        <th>Last Report</th>
+        <th>Miles From Home</th>
+    </tr>
+</table>
+
+</body>
+</html>
